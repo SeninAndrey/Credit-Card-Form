@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const requiredFieldMessage = 'Field is required';
+const requiredFieldMessage: string = 'Field is required';
 const inValidCardNumberMessage: string = 'Invalid card Number';
 const inValidCardHolderMessage: string = 'Invalid card Holder';
 const inValidCardDateMessage: string = 'Invalid expiry date. Example: MM/YY';

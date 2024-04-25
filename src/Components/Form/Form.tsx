@@ -1,23 +1,20 @@
 import React from 'react';
 import './form.css';
-// import ReactDOM from 'react-dom';
 import InputMask from 'react-input-mask';
 import { Formik, Field, Form } from 'formik';
 import creditCardType from 'credit-card-type';
 import { FormSchema } from '../../Yup.ts'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCardValues } from '../../Store/cardSlice.ts';
+import { RootState } from '../../Store/store.ts';
 
 export function CardForm () {
 
     const dispatch = useDispatch();
-    const form = useSelector((state) => state.card.card);
-    
+    const form = useSelector((state: RootState) => state.card.card);    
 
-    const handleChange = (field) => (event) => {
+    const handleChange = (field: string) => (event) => {
         dispatch(updateCardValues({ field, value: event.target.value }));
-        console.log(event.target.value);
-        
     }
 
     const handleBlur = (cardNumber) => {
@@ -35,13 +32,13 @@ export function CardForm () {
                 initialValues = { form }
                 enableReinitialize={true}
                 validationSchema={FormSchema}
-                validateOnMount
-                validateOnBlur
+                validateOnMount = {true}
+                validateOnBlur = {true}
                 onSubmit={ (values) => {
                     alert(JSON.stringify(values, null, 2));
                 }}
             >
-                {({ values, errors, touched }) => (
+                {({ values, errors, touched, validateOnMount }) => (
                     <Form className='form'>
                         <label htmlFor='cardNumber' className='formLabel'>Card number</label>
                         <Field name='cardNumber'>
