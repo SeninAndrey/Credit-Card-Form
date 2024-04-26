@@ -18,7 +18,7 @@ export const FormSchema = Yup.object().shape({
         .required(requiredFieldMessage),
     cardDate: Yup.string()
         .length(5, inValidCardDateMessage)
-        .matches(/([0-9]{2})\/([0-9]{2})/,inValidCardDateMessage)
+        .matches(/(0[1-9]|1[0-2])\/([0-9]{2})/,inValidCardDateMessage)
         .required(requiredFieldMessage),
     cardCVV: Yup.string()
         .min(3, inValidCardCVVMessage)

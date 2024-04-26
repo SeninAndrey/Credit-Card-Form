@@ -5,36 +5,34 @@ import { useSelector } from 'react-redux';
 import { EIcon, Icon } from '../../Icons/Icon.tsx';
 import { RootState } from '../../Store/store.ts';
 
+const paymentSystemLogo = (cardNumber) => {        
+    if (creditCardType(cardNumber).length) {        
+        switch (creditCardType(cardNumber)[0].type) {
+            case 'visa':
+                return <Icon name={EIcon.visa}/>
+            case 'mastercard':
+                return <Icon name={EIcon.mastercard}/>
+            case 'mir':
+                return <Icon name={EIcon.mir}/>
+            case 'maestro':
+                return <Icon name={EIcon.maestro}/>
+            case 'american-express':
+                return <Icon name={EIcon.americanExpress}/>
+            case 'diners-club':
+                return <Icon name={EIcon.dinnersClub}/>
+            default:
+                return
+            }
+    } 
+}
 
 export function CardResult () {
     const form = useSelector((state: RootState) => state.card.card);    
 
-    const getPymentSystemLogo = (cardNumber) => {
-        if (creditCardType(cardNumber)[0]) {
-            return creditCardType(cardNumber)[0].type;
-        }
-    }
     return (
         <div className='cardContainer'>
-            <div className='paymentLogo'> 
-                {getPymentSystemLogo(form.cardNumber) === 'visa' &&
-                    <Icon name={EIcon.visa}/>
-                }
-                {getPymentSystemLogo(form.cardNumber) === 'mastercard' &&
-                    <Icon name={EIcon.mastercard}/>
-                }
-                {getPymentSystemLogo(form.cardNumber) === 'mir' &&
-                    <Icon name={EIcon.mir}/>
-                }
-                {getPymentSystemLogo(form.cardNumber) === 'maestro' &&
-                    <Icon name={EIcon.maestro}/>
-                }
-                {getPymentSystemLogo(form.cardNumber) === 'american-express' &&
-                    <Icon name={EIcon.americanExpress}/>
-                }
-                {getPymentSystemLogo(form.cardNumber) === 'diners-club' &&
-                    <Icon name={EIcon.dinnersClub}/>
-                }
+            <div className={`paymentLogo ${!creditCardType(form.cardNumber).length ? 'paymentLogo--default' : ''}`}> 
+                {paymentSystemLogo(form.cardNumber)}
             </div>
             <p className='fieldValue'>{form.cardNumber}</p>
             <div className='cardBottom'>
